@@ -1,0 +1,4 @@
+An array of APP_ARGS can be defined in env.rb or in the ENV hash. 
+A dictionary of APP_DEFAULTS can be defined in env.rb or in the ENV hash.
+
+APP_DEFAULTS will be passed via the command line to the application, setting the default with key to the provided value. APP_ARGS will be directly passed.
