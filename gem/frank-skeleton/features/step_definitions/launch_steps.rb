@@ -7,7 +7,7 @@ def app_args
 end
 
 def app_defaults
-  ENV['APP_DEFAULTS'] || (defined?(APP_DEFAULTS) && APP_DEFAULTS
+  ENV['APP_DEFAULTS'] || (defined?(APP_DEFAULTS) && APP_DEFAULTS)
 end
 
 def app_args_by_processing_defaults  
