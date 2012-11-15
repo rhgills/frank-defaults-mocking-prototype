@@ -30,11 +30,16 @@ module Launcher
     end
   end
 
-  def launch_app(app_path, sdk = nil, version = 'iphone', app_args = nil)
+  def launch_app(app_path, args)
+    # args:
+    # :sdk
+    # :version
+    # :app_args
+    
     @application_path = app_path
-    @sdk = sdk
-    @version = version
-    @app_args = app_args
+    @sdk = args[:sdk]
+    @version = args[:version]
+    @app_args = args[:app_args]
 
     enforce(app_path)
 

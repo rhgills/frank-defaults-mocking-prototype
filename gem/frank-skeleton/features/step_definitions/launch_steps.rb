@@ -29,7 +29,7 @@ end
 
 Given /^I launch the app$/ do
   # latest sdk and iphone by default
-  launch_app app_path, :app_args = app_args
+  launch_app app_path, {:app_args => app_args}
 end
 
 
@@ -38,9 +38,9 @@ Given /^I launch the app using iOS (\d\.\d)$/ do |sdk|
   # > run sim_launcher from the command line
   # > open a browser to http://localhost:8881/showsdks
   # > use one of the sdk you see in parenthesis (e.g. 4.2)
-  launch_app app_path, sdk, :app_args = app_args
+  launch_app app_path, {:sdk => sdk, :app_args => app_args}
 end
 
 Given /^I launch the app using iOS (\d\.\d) and the (iphone|ipad) simulator$/ do |sdk, version|
-  launch_app app_path, sdk, version, :app_args = app_args
+  launch_app app_path, {:sdk => sdk, :version => version, :app_args = app_args}
 end
