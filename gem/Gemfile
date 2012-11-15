@@ -1,8 +1,9 @@
 source "http://rubygems.org"
 
+# override the gemspec dependency for local development of sim-launcher
+gem 'sim_launcher', :github => 'rhgills/Sim-Launcher', :branch => 'master'
+
 # Specify your gem's dependencies in frank-cucumber.gemspec
 gemspec
 
 
-# override the gemspec dependency for local development of sim-launcher
-gem 'sim_launcher', :github => 'rhgills/Sim-Launcher', :branch => 'master'
