@@ -11,6 +11,10 @@ def app_defaults
 end
 
 def app_args_by_processing_defaults  
+  if app_defaults.nil?
+    return nil
+  end
+  
   args = []
   app_defaults.each do |key, value|
     
