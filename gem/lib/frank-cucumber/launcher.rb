@@ -11,7 +11,6 @@ module Launcher
   end
 
   def simulator_direct_client
-    puts "Creating direct_client"
     @simulator_direct_client ||= SimLauncher::DirectClient.new(@application_path, @sdk, @version, @app_args)
   end
 
@@ -36,9 +35,7 @@ module Launcher
     # :sdk
     # :version
     # :app_args
-    
-    puts "launching"
-    
+  
     @application_path = app_path
     @sdk = args[:sdk]
     @version = args[:version]
