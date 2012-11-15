@@ -313,7 +313,6 @@ module FrankHelper
           num_consec_failures += 1
           if num_consec_failures >= 5 # don't show small timing errors
             print (num_consec_failures == 5 ) ? "\n" : "\r"
-            puts "Yeah, ping is gonna fail."
             print "PING FAILED" + "!"*num_consec_failures
           end
         end
