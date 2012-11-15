@@ -37,6 +37,8 @@ module Launcher
     # :version
     # :app_args
     
+    puts "launching"
+    
     @application_path = app_path
     @sdk = args[:sdk]
     @version = args[:version]
