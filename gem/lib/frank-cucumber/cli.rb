@@ -79,6 +79,8 @@ module Frank
       extra_opts += " -arch #{options['arch']}"
 
       run %Q|xcodebuild -xcconfig Frank/frankify.xcconfig #{build_steps} #{extra_opts} -configuration Debug -sdk iphonesimulator DEPLOYMENT_LOCATION=YES DSTROOT="#{build_output_dir}" FRANK_LIBRARY_SEARCH_PATHS="\\"#{frank_lib_directory}\\""|
+      exit(false) if $?.exitstatus != 0 
+      
 
       app = Dir.glob("#{build_output_dir}/*.app").delete_if { |x| x =~ /\/#{app_bundle_name}$/ }
       app = app.first
