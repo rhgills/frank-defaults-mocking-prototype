@@ -81,10 +81,10 @@ module Frank
       run %Q|xcodebuild -xcconfig Frank/frankify.xcconfig #{build_steps} #{extra_opts} -configuration Debug -sdk iphonesimulator DEPLOYMENT_LOCATION=YES DSTROOT="#{build_output_dir}" FRANK_LIBRARY_SEARCH_PATHS="\\"#{frank_lib_directory}\\""|
       exit(false) if $?.exitstatus != 0 
       
-
       app = Dir.glob("#{build_output_dir}/*.app").delete_if { |x| x =~ /\/#{app_bundle_name}$/ }
       app = app.first
-      FileUtils.cp_r("#{app}/.", frankified_app_dir)
+      FileUtils.rm_rf(frankified_app_dir) # cp_r chokes if there is something here, even with :remove_destination => true. This can happen when exiting early because of a failed build.
+      FileUtils.cp_r("#{app}/.", frankified_app_dir )
 
       fix_frankified_apps_bundle_identifier
 
