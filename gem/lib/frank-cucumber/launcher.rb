@@ -7,11 +7,12 @@ module Launcher
   attr_accessor :application_path, :sdk, :version
 
   def simulator_client
-    @simulator_client ||= SimLauncher::Client.new(@application_path, @sdk, @version, @app_args)
+    # TODO: the client accepts other_args, but it doesn't pass them to the server. Fix this.
+    @simulator_client ||= SimLauncher::Client.new(@application_path, @sdk, @version, @app_args, {:clear_defaults => @clear_defaults, :set_defaults => @set_defaults})
   end
 
   def simulator_direct_client
-    @simulator_direct_client ||= SimLauncher::DirectClient.new(@application_path, @sdk, @version, @app_args)
+    @simulator_direct_client ||= SimLauncher::DirectClient.new(@application_path, @sdk, @version, @app_args, {:clear_defaults => @clear_defaults, :set_defaults => @set_defaults})
   end
 
   def enforce(app_path, locator = Frank::Cucumber::AppBundleLocator.new)
@@ -40,6 +41,8 @@ module Launcher
     @sdk = args[:sdk]
     @version = args[:version]
     @app_args = args[:app_args]
+    @clear_defaults = args[:clear_defaults]
+    @set_defaults = args[:set_defaults]
 
     enforce(app_path)
 
@@ -61,6 +64,8 @@ module Launcher
     loop do
       begin
         simulator.relaunch
+
+        
         wait_for_frank_to_come_up
         break # if we make it this far without an exception then we're good to move on
 
