@@ -31,7 +31,7 @@ module Launcher
     end
   end
 
-  def launch_app(app_path, args)
+  def launch_app(app_path, args = {})
     # args:
     # :sdk
     # :version
