@@ -15,6 +15,14 @@ module Launcher
     @simulator_direct_client ||= SimLauncher::DirectClient.new(@application_path, @sdk, @version, @app_args, {:clear_defaults => @clear_defaults, :set_defaults => @set_defaults})
   end
 
+  def simulator
+    if( ENV['USE_SIM_LAUNCHER_SERVER'] )
+      simulator = simulator_client
+    else
+      simulator = simulator_direct_client
+    end  
+  end
+
   def enforce(app_path, locator = Frank::Cucumber::AppBundleLocator.new)
     if app_path.nil?
       message = "APP_BUNDLE_PATH is not set. \n\nPlease set APP_BUNDLE_PATH (either an environment variable, or the ruby constant in support/env.rb) to the path of your Frankified target's iOS app bundle."
@@ -31,13 +39,17 @@ module Launcher
     end
   end
 
+  def write_app_document(app_path, sdk_version, document_relative_path, document_contents)
+    enforce(app_path)
+    
+    simulator.write_app_document(app_path, sdk_version, document_relative_path, document_contents)
+  end
+
   def launch_app(app_path, args = {})
-    # args:
-    # :sdk
-    # :version
-    # :app_args
   
     @application_path = app_path
+    
+    # args:
     @sdk = args[:sdk]
     @version = args[:version]
     @app_args = args[:app_args]
@@ -52,12 +64,6 @@ module Launcher
     begin
       Timeout::timeout(5) { press_home_on_simulator if frankly_ping }
     rescue Timeout::Error 
-    end
-
-    if( ENV['USE_SIM_LAUNCHER_SERVER'] )
-      simulator = simulator_client
-    else
-      simulator = simulator_direct_client
     end
 
     num_timeouts = 0

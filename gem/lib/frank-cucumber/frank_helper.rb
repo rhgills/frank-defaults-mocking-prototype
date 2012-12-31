@@ -154,8 +154,10 @@ module FrankHelper
   #
   # @see check_element_does_not_exist
   # @see wait_for_element_to_not_exist
-  def wait_for_element_to_not_exist(selector)
-    wait_until(:message => "Waited for element #{selector} to not exist") do
+  def wait_for_element_to_not_exist(selector, timeout = nil)
+    args = {:message => "Waited for element #{selector} to not exist"}
+    args[:timeout] = timeout if timeout
+    wait_until(args) do
       !element_exists(selector)
     end
   end
